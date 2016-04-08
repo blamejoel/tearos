@@ -1714,6 +1714,9 @@ main(int argc, char *argv[])
   }
   close(open("usertests.ran", O_CREATE));
 
+  // print system call count
+  printf(1, "System call count is %d\n", count());
+
   createdelete();
   linkunlink();
   concreate();

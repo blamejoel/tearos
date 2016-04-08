@@ -52,6 +52,7 @@ fdalloc(struct file *f)
 int
 sys_dup(void)
 {
+  proc->count++;                    // increment syscall counter
   struct file *f;
   int fd;
   
@@ -66,6 +67,7 @@ sys_dup(void)
 int
 sys_read(void)
 {
+  proc->count++;                    // increment syscall counter
   struct file *f;
   int n;
   char *p;
@@ -78,6 +80,7 @@ sys_read(void)
 int
 sys_write(void)
 {
+  proc->count++;                    // increment syscall counter
   struct file *f;
   int n;
   char *p;
@@ -90,6 +93,7 @@ sys_write(void)
 int
 sys_close(void)
 {
+  proc->count++;                    // increment syscall counter
   int fd;
   struct file *f;
   
@@ -103,6 +107,7 @@ sys_close(void)
 int
 sys_fstat(void)
 {
+  proc->count++;                    // increment syscall counter
   struct file *f;
   struct stat *st;
   
@@ -115,6 +120,7 @@ sys_fstat(void)
 int
 sys_link(void)
 {
+  proc->count++;                    // increment syscall counter
   char name[DIRSIZ], *new, *old;
   struct inode *dp, *ip;
 
@@ -181,6 +187,7 @@ isdirempty(struct inode *dp)
 int
 sys_unlink(void)
 {
+  proc->count++;                    // increment syscall counter
   struct inode *ip, *dp;
   struct dirent de;
   char name[DIRSIZ], *path;
@@ -283,6 +290,7 @@ create(char *path, short type, short major, short minor)
 int
 sys_open(void)
 {
+  proc->count++;                    // increment syscall counter
   char *path;
   int fd, omode;
   struct file *f;
@@ -333,6 +341,7 @@ sys_open(void)
 int
 sys_mkdir(void)
 {
+  proc->count++;                    // increment syscall counter
   char *path;
   struct inode *ip;
 
@@ -349,6 +358,7 @@ sys_mkdir(void)
 int
 sys_mknod(void)
 {
+  proc->count++;                    // increment syscall counter
   struct inode *ip;
   char *path;
   int len;
@@ -370,6 +380,7 @@ sys_mknod(void)
 int
 sys_chdir(void)
 {
+  proc->count++;                    // increment syscall counter
   char *path;
   struct inode *ip;
 
@@ -394,6 +405,7 @@ sys_chdir(void)
 int
 sys_exec(void)
 {
+  proc->count++;                    // increment syscall counter
   char *path, *argv[MAXARG];
   int i;
   uint uargv, uarg;
@@ -420,6 +432,7 @@ sys_exec(void)
 int
 sys_pipe(void)
 {
+  proc->count++;                    // increment syscall counter
   int *fd;
   struct file *rf, *wf;
   int fd0, fd1;

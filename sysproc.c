@@ -10,12 +10,14 @@
 int
 sys_fork(void)
 {
+  proc->count++;                    // increment syscall counter
   return fork();
 }
 
 int
 sys_exit(void)
 {
+  proc->count++;                    // increment syscall counter
   exit();
   return 0;  // not reached
 }
@@ -23,12 +25,14 @@ sys_exit(void)
 int
 sys_wait(void)
 {
+  proc->count++;                    // increment syscall counter
   return wait();
 }
 
 int
 sys_kill(void)
 {
+  proc->count++;                    // increment syscall counter
   int pid;
 
   if(argint(0, &pid) < 0)
@@ -39,12 +43,14 @@ sys_kill(void)
 int
 sys_getpid(void)
 {
+  proc->count++;                    // increment syscall counter
   return proc->pid;
 }
 
 int
 sys_sbrk(void)
 {
+  proc->count++;                    // increment syscall counter
   int addr;
   int n;
 
@@ -59,6 +65,7 @@ sys_sbrk(void)
 int
 sys_sleep(void)
 {
+  proc->count++;                    // increment syscall counter
   int n;
   uint ticks0;
   
@@ -82,10 +89,17 @@ sys_sleep(void)
 int
 sys_uptime(void)
 {
+  proc->count++;                    // increment syscall counter
   uint xticks;
   
   acquire(&tickslock);
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+// return number of system calls
+int sys_count(void) {
+  proc->count++;                    // increment syscall counter
+  return proc->count;
 }
