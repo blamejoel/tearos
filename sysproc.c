@@ -17,8 +17,10 @@ sys_fork(void)
 int
 sys_exit(void)
 {
+  int status;                       // status for syscall exit (lab1)
+  argint(0, &status);               // first parameter for syscall (lab1)
   proc->count++;                    // increment syscall counter
-  exit();
+  exit(status);                     // add status as an exit param (lab1)
   return 0;  // not reached
 }
 

@@ -170,11 +170,13 @@ fork(void)
 // Exit the current process.  Does not return.
 // An exited process remains in the zombie state
 // until its parent calls wait() to find out it exited.
+// added int status param in lab1
 void
-exit(void)
+exit(int status)
 {
   struct proc *p;
   int fd;
+  proc->status = status;           // exit status (lab1)
 
   if(proc == initproc)
     panic("init exiting");
