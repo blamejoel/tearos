@@ -28,7 +28,9 @@ int
 sys_wait(void)
 {
   proc->count++;                    // increment syscall counter
-  return wait();
+  int *status;
+  argptr(0, (char**) &status, sizeof(int*));
+  return wait(status);
 }
 
 int
