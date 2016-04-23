@@ -472,3 +472,45 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+int waitpid(int pid, int *status, int options) {
+  struct proc *p;
+  int havekids;
+
+  acquire(&ptable.lock);
+  for(;;) {
+    // Look for zombie children
+    havekids = 0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+      if(p->parent != proc)
+        continue;
+      havekids = 1;
+      if(p->state == ZOMBIE && p->pid == pid) {
+        // found zombie!
+        pid = p->pid;
+        kfree (p->kstack);
+        p->kstack = 0;
+        freevm(p->pgdir);
+        p->state = UNUSED;
+        p->pid = 0;
+        p->parent = 0;
+        p->name[0] = 0;
+        p->killed = 0;
+        if(status)
+          status = &p->status;
+        release(&ptable.lock);
+        return pid;
+      }
+    }
+
+    // No children!
+    if(!havekids || proc->killed) {
+      release(&ptable.lock);
+      return -1;
+    }
+    if(options)
+      sleep(proc, &ptable.lock);  
+    else 
+      return -1;
+  }
+}
