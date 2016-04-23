@@ -1,3 +1,4 @@
+![tearOS logo](/../img/img/tearOS90.png?raw=true "tearOS")
 # tearOS
 tearOS is a custom (and probably very poor) implementation of 
 [xv6](../master/README) for UCR CS153 (as of Winter 2016).
