@@ -243,7 +243,7 @@ wait(int *status)
         p->killed = 0;
 
         if (status) 
-          status = &p->status;
+          *status = p->status;
 
         release(&ptable.lock);
         return pid;
@@ -496,7 +496,7 @@ int waitpid(int pid, int *status, int options) {
         p->name[0] = 0;
         p->killed = 0;
         if(status)
-          status = &p->status;
+          *status = p->status;
         release(&ptable.lock);
         return pid;
       }
