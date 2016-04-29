@@ -505,11 +505,11 @@ int waitpid(int pid, int *status, int options) {
     // No children!
     if(!havekids || proc->killed) {
       release(&ptable.lock);
-      return pid;
-    }
-    if(options)
-      sleep(proc, &ptable.lock);  
-    else 
       return -1;
+    }
+    /* if(options) */
+      sleep(proc, &ptable.lock);  
+    /* else */ 
+    /*   return -1; */
   }
 }
