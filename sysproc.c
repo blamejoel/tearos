@@ -115,6 +115,13 @@ int sys_waitpid(void) {
   return waitpid(pid, status, options);
 }
 
+int sys_change_priority(void) {
+  int priority;
+  if(argint(0, &priority) < 0)
+    return -1;
+  return change_priority(priority);
+}
+
 // return number of system calls
 int sys_count(void) {
   proc->count++;                    // increment syscall counter
