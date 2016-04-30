@@ -47,6 +47,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  p->priority = 0;        // initialize priority
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -272,7 +273,7 @@ wait(int *status)
 void
 scheduler(void)
 {
-  struct proc *p;
+  struct proc *p, *s, *prio;
 
   for(;;){
     // Enable interrupts on this processor.
@@ -284,12 +285,20 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
 
+      prio = p;
+      for(s = p++; s < &ptable.proc[NPROC]; s++) {
+        if(s->state != RUNNABLE)
+          continue;
+        else if(s->priority > prio->priority) {
+          prio = s;
+        }
+      }
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
-      proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+      proc = prio;
+      switchuvm(prio);
+      prio->state = RUNNING;
       swtch(&cpu->scheduler, proc->context);
       switchkvm();
 
@@ -507,9 +516,11 @@ int waitpid(int pid, int *status, int options) {
       release(&ptable.lock);
       return -1;
     }
-    /* if(options) */
-      sleep(proc, &ptable.lock);  
-    /* else */ 
-    /*   return -1; */
+    sleep(proc, &ptable.lock);  
   }
+}
+
+int change_priority(int priority) {
+  proc->priority = priority;
+  return 0;
 }

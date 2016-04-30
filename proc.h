@@ -68,6 +68,7 @@ struct proc {
   char name[16];               // Process name (debugging)
   int count;                   // Process sys call count
   int status;             // Var for exit status for terminated process
+  int priority;           // var for holding process priority
 };
 
 // Process memory is laid out contiguously, low addresses first:
