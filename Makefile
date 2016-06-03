@@ -171,8 +171,10 @@ UPROGS=\
 	_usertests\
 	_test\
 	_test1\
+	_test1_3c\
 	_test_random\
 	_test_q\
+	_test_sema\
 	_frisbee\
 	_test_sleep\
 	_wc\

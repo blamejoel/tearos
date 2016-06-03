@@ -1,3 +1,6 @@
+#ifndef USER_H
+#define USER_H
+#include "semaphore.h"
 struct stat;
 
 // system calls
@@ -19,9 +22,9 @@ int mkdir(char*);
 int chdir(char*);
 int dup(int);
 int getpid(void);
-void sem_acquire(struct Semaphore *);
-void sem_init(struct Semaphore *, int);
-void sem_signal(struct Semaphore *);
+void sem_acquire(Semaphore *);
+void sem_init(Semaphore *, int);
+void sem_signal(Semaphore *);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
@@ -50,3 +53,4 @@ void *thread_create(void (*start_routine)(void*), void *arg);
 void lock_init(lock_t *lock);
 void lock_acquire(lock_t *lock);
 void lock_release(lock_t *lock);
+#endif
