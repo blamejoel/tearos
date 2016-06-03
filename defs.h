@@ -1,3 +1,6 @@
+#ifndef DEFS_H
+#define DEFS_H
+#include "semaphore.h"
 struct buf;
 struct context;
 struct file;
@@ -121,6 +124,11 @@ void            yield(void);
 int             clone(int stack, int size,int routine,int arg);
 void            texit(void);
 
+// semaphore.c
+void sem_init(Semaphore *, int);
+void sem_acquire(Semaphore *);
+void sem_signal(Semaphore *);
+
 // swtch.S
 void            swtch(struct context**, struct context*);
 
@@ -183,3 +191,4 @@ void            clearpteu(pde_t *pgdir, char *uva);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))
+#endif

@@ -63,6 +63,35 @@ sys_getpid(void)
 }
 
 int
+sys_sem_acquire(void)
+{
+  Semaphore *s;
+  argptr(0, (char**) &s, sizeof(Semaphore *));
+  sem_acquire(s);
+  return 0;
+}
+
+int
+sys_sem_init(void) 
+{
+  Semaphore *s;
+  int i;
+  argptr(0, (char**) &s, sizeof(Semaphore *));
+  argint(1, &i);
+  sem_init(s, i);
+  return 0;
+}
+
+int
+sys_sem_signal(void)
+{
+  Semaphore *s;
+  argptr(0, (char**) &s, sizeof(Semaphore*));
+  sem_signal(s);
+  return 0;
+}
+
+int
 sys_sbrk(void)
 {
   int addr;

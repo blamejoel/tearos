@@ -1,3 +1,5 @@
+#ifndef PROC_H
+#define PROC_H
 // Segments in proc->gdt.
 #define NSEGS     7
 
@@ -76,3 +78,4 @@ struct proc {
 //   original data and bss
 //   fixed-size stack
 //   expandable heap
+#endif

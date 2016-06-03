@@ -6,10 +6,11 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "semaphore.h"
 
 struct {
-    struct spinlock lock;
-    struct proc proc[NPROC];
+  struct spinlock lock;
+  struct proc proc[NPROC];
 } ptable;
 
 static struct proc *initproc;

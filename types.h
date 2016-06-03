@@ -5,4 +5,4 @@ typedef uint pde_t;
 typedef struct {
           uint locked;
         } lock_t;
-
+struct Semaphore;
