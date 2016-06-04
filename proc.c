@@ -641,3 +641,10 @@ void tsleep(void){
     release(&ptable.lock);
 
 }
+
+void thread_yield(void) {
+  acquire(&ptable.lock);
+  proc->state = RUNNABLE;
+  sched();
+  release(&ptable.lock);
+}
