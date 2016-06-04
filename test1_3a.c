@@ -2,8 +2,8 @@
 #include "user.h"
 #include "semaphore.h"
 
-#define HNUM 12
-#define ONUM 6
+#define HNUM 6
+#define ONUM 3
 
 Semaphore H, isReady, O;
 
@@ -22,6 +22,20 @@ int main(int argc, char *argv[]) {
 
   int i;
   void *tid;
+  for(i = 0; i < HNUM; i++) {
+     tid = thread_create(hReady, (void *)&arg);
+     if(tid <= 0){
+         printf(1,"something went wrong when making the %dth H thread!", i);
+         exit();
+     } 
+  }
+  for(i = 0; i < ONUM; i++) {
+     tid = thread_create(oReady, (void *)&h2o);
+     if(tid <= 0){
+         printf(1,"something went wrong when making the %dth O thread!", i);
+         exit();
+     } 
+  }
   for(i = 0; i < HNUM; i++) {
      tid = thread_create(hReady, (void *)&arg);
      if(tid <= 0){
