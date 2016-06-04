@@ -171,6 +171,7 @@ UPROGS=\
 	_usertests\
 	_test\
 	_test1\
+	_test1_3a\
 	_test1_3c\
 	_test_random\
 	_test_q\
