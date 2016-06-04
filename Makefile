@@ -175,6 +175,7 @@ UPROGS=\
 	_test_random\
 	_test_q\
 	_test_sema\
+	_test_thread_yield\
 	_frisbee\
 	_test_sleep\
 	_wc\
